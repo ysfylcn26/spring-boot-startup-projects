@@ -1,7 +1,6 @@
 package com.core.security.service;
 
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@PropertySource("classpath:application-security.properties")
+@PropertySource("classpath:application-dev-security.properties")
 public class JwtTokenUtil {
 
     public String jwtSecret;
