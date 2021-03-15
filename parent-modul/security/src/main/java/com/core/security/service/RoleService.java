@@ -1,6 +1,5 @@
 package com.core.security.service;
 
-import com.core.basic.utils.UtilMethods;
 import com.core.model.models.entity.Role;
 import com.core.model.models.enums.RoleType;
 import com.core.model.repository.RoleRepository;

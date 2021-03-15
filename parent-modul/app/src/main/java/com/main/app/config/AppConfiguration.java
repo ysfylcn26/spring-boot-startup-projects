@@ -7,12 +7,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableAutoConfiguration
-@ComponentScans({
-        @ComponentScan(basePackages = "com.core.security.*"),
-        @ComponentScan(basePackages = "com.core.security.config"),
-        @ComponentScan(basePackages = "com.core.basic.*"),
-        @ComponentScan(basePackages = "com.core.model.*")
-})
+@ComponentScan(basePackages = "com.core.security.*")
+@ComponentScan(basePackages = "com.core.security.config")
+@ComponentScan(basePackages = "com.core.basic.*")
+@ComponentScan(basePackages = "com.core.model.*")
 @EntityScan("com.core.model.models.entity")
 @EnableJpaRepositories("com.core.model.repository")
 public class AppConfiguration {

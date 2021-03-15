@@ -48,9 +48,9 @@ public class AuthService {
     @Transactional
     public GenericReturnValue<String> signUp(SignUpRequest signUpRequest){
         if(userRespository.existsByUsername(signUpRequest.getUsername()))
-            throw new ResourceAlreadyExists(ErrorMessages.USERNAME_ALREADY_EXİST);
+            throw new ResourceAlreadyExists(ErrorMessages.USERNAME_ALREADY_EXIST);
         if(!UtilMethods.isNullOrBlankCheck(signUpRequest.getEmail()) && userRespository.existsByEmail(signUpRequest.getEmail()))
-            throw new ResourceAlreadyExists(ErrorMessages.EMAIL_ALREADY_EXİST);
+            throw new ResourceAlreadyExists(ErrorMessages.EMAIL_ALREADY_EXIST);
         User user = User.builder().username(signUpRequest.getUsername()).email(signUpRequest.getEmail())
                 .firstName(signUpRequest.getFirstName()).surname(signUpRequest.getSurname()).userUuid(UUID.randomUUID())
                 .status(UserStatus.ACTIVE).password(passwordEncoder.encode(signUpRequest.getPassword())).build();

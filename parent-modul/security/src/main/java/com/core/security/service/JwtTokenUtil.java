@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 @PropertySource("classpath:application-dev-security.properties")
 public class JwtTokenUtil {
 
-    public String jwtSecret;
-    public String jwtIssuer;
+    private String jwtSecret;
+    private String jwtIssuer;
 
     @Autowired
     public JwtTokenUtil(@Value("${security.key.jwtSecret}") String jwtSecret, @Value("${security.key.jwtIssuer}") String jwtIssuer){
