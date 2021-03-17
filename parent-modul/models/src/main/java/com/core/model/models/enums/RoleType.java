@@ -25,6 +25,6 @@ public enum RoleType {
     }
 
     public static Set<RoleType> roleTypeWithoutAnonymous(Set<RoleType> roleTypes){
-        return UtilMethods.isNullSetSafely(roleTypes).filter(x -> x != ROLE_ANONYMOUS).collect(Collectors.toSet());
+        return UtilMethods.isNullOrEmptyCollectionSafely(roleTypes).filter(x -> x != ROLE_ANONYMOUS).collect(Collectors.toSet());
     }
 }
