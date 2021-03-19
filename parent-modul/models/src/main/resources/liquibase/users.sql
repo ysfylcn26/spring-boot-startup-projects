@@ -1,4 +1,4 @@
-create sequence if NOT exists users_id_sequence increment by 20;
+create sequence if NOT exists users_id_sequence increment by 100;
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT NOT NULL DEFAULT nextval('users_id_sequence') PRIMARY KEY,
     user_uuid uuid NOT NULL,

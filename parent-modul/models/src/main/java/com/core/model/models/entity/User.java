@@ -27,7 +27,7 @@ public class User extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_sequence")
-    @SequenceGenerator(name = "users_id_sequence", sequenceName = "users_id_sequence", allocationSize = 20)
+    @SequenceGenerator(name = "users_id_sequence", sequenceName = "users_id_sequence", allocationSize = 100)
     private Long id;
     private UUID userUuid;
     @Length(min = 6, max = 25)
