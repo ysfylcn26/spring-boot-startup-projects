@@ -1,0 +1,46 @@
+<configuration>
+    <springProfile name="dev">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
+            <graylogHost>127.0.0.1</graylogHost>
+            <graylogPort>12202</graylogPort>
+            <maxChunkSize>508</maxChunkSize>
+            <useCompression>true</useCompression>
+            <encoder class="de.siegmar.logbackgelf.GelfEncoder">
+                <originHost>127.0.0.1</originHost>
+                <includeRawMessage>false</includeRawMessage>
+                <includeMarker>true</includeMarker>
+                <includeMdcData>true</includeMdcData>
+                <includeCallerData>false</includeCallerData>
+                <includeRootCauseData>false</includeRootCauseData>
+                <includeLevelName>false</includeLevelName>
+                <shortPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%m%nopex</pattern>
+                </shortPatternLayout>
+                <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%m%n</pattern>
+                </fullPatternLayout>
+                <staticField>app_name:modular</staticField>
+                <staticField>os_arch:${os.arch}</staticField>
+                <staticField>os_name:${os.name}</staticField>
+                <staticField>os_version:${os.version}</staticField>
+            </encoder>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="GELF" />
+        </root>
+    </springProfile>
+
+</configuration>
