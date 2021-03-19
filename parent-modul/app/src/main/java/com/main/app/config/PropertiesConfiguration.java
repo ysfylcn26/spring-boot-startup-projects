@@ -1,6 +1,7 @@
 package com.main.app.config;
 
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource("classpath:application-${spring.profiles.active}-moduls.properties")
