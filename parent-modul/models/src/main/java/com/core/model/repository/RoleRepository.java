@@ -10,7 +10,6 @@ import java.util.Set;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    @Cacheable("role_cache_list")
     Optional<Set<Role>> findAllByRoleNameIn(Set<RoleType> roleTypes);
 
 }
