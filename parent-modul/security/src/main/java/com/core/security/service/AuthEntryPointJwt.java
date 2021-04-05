@@ -14,7 +14,8 @@ import java.io.IOException;
 @Slf4j
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     @Override
-    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+            AuthenticationException e) throws IOException, ServletException {
         log.error("There is some problems about authentication: {}", e.getMessage());
         httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
     }

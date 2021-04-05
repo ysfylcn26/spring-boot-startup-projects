@@ -16,7 +16,7 @@ public class UserService {
     private final UserRespository userRespository;
 
     @Transactional(readOnly = true)
-    public User getUserByUserName(@NonNull String userName){
+    public User getUserByUserName(@NonNull String userName) {
         return userRespository.findByUserNameWithRoles(userName)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorMessages.USER_NOT_FOUND));
     }

@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceAlreadyExists.class)
     public ResponseEntity<ExceptionResponse> resourceAlreadyExists(ResourceAlreadyExists ex) {
-        ExceptionResponse response=new ExceptionResponse();
+        ExceptionResponse response = new ExceptionResponse();
         response.setErrorCode(HttpStatus.CONFLICT.value());
         response.setErrorMessage(ex.getMessage());
         response.setErrorReason(HttpStatus.CONFLICT.getReasonPhrase());
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ExceptionResponse> customException(CustomException ex) {
-        ExceptionResponse response=new ExceptionResponse();
+        ExceptionResponse response = new ExceptionResponse();
         response.setErrorCode(HttpStatus.BAD_REQUEST.value());
         response.setErrorMessage(ex.getMessage());
         response.setErrorReason(HttpStatus.BAD_REQUEST.getReasonPhrase());
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ExceptionResponse> unauthorizedException(UnauthorizedException ex) {
-        ExceptionResponse response=new ExceptionResponse();
+        ExceptionResponse response = new ExceptionResponse();
         response.setErrorCode(HttpStatus.UNAUTHORIZED.value());
         response.setErrorMessage(ex.getMessage());
         response.setErrorReason(HttpStatus.UNAUTHORIZED.getReasonPhrase());

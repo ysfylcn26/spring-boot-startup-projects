@@ -38,21 +38,23 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
-    public AuthenticationResponse login(AuthenticationRequest request){
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+    public AuthenticationResponse login(AuthenticationRequest request) {
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenUtil.generateAccessToken(authentication);
-        Set<RoleType> roleList = authentication.getAuthorities().stream().map(x -> RoleType.valueOf(x.getAuthority())).collect(Collectors.toSet());
+        Set<RoleType> roleList = authentication.getAuthorities().stream().map(x -> RoleType.valueOf(x.getAuthority()))
+                .collect(Collectors.toSet());
         return AuthenticationResponse.builder().token(jwt).roleList(roleList).username(request.getUsername()).build();
     }
 
     @Transactional
-    public GenericReturnValue<String> signUp(SignUpRequest signUpRequest){
+    public GenericReturnValue<String> signUp(SignUpRequest signUpRequest) {
         log.info("There is this user");
-        if(userRespository.existsByUsername(signUpRequest.getUsername()))
+        if (userRespository.existsByUsername(signUpRequest.getUsername()))
             throw new ResourceAlreadyExists(ErrorMessages.USERNAME_ALREADY_EXIST);
-        if(!UtilMethods.isNullOrBlankCheck(signUpRequest.getEmail()) && userRespository.existsByEmail(signUpRequest.getEmail()))
+        if (!UtilMethods.isNullOrBlankCheck(signUpRequest.getEmail())
+                && userRespository.existsByEmail(signUpRequest.getEmail()))
             throw new ResourceAlreadyExists(ErrorMessages.EMAIL_ALREADY_EXIST);
         User user = User.builder().username(signUpRequest.getUsername()).email(signUpRequest.getEmail())
                 .firstName(signUpRequest.getFirstName()).surname(signUpRequest.getSurname()).userUuid(UUID.randomUUID())

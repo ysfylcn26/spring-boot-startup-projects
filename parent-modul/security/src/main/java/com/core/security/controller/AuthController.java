@@ -22,12 +22,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody AuthenticationRequest request){
+    public ResponseEntity<AuthenticationResponse> login(@Valid @RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<GenericReturnValue<String>> signUp(@Valid @RequestBody SignUpRequest signUpRequest){
+    public ResponseEntity<GenericReturnValue<String>> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {
         return ResponseEntity.ok(authService.signUp(signUpRequest));
     }
 }

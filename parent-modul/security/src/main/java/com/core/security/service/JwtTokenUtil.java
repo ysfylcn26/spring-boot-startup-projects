@@ -23,7 +23,8 @@ public class JwtTokenUtil {
     private String jwtIssuer;
 
     @Autowired
-    public JwtTokenUtil(@Value("${security.key.jwtSecret}") String jwtSecret, @Value("${security.key.jwtIssuer}") String jwtIssuer){
+    public JwtTokenUtil(@Value("${security.key.jwtSecret}") String jwtSecret,
+            @Value("${security.key.jwtIssuer}") String jwtIssuer) {
         this.jwtSecret = jwtSecret;
         this.jwtIssuer = jwtIssuer;
     }
@@ -32,21 +33,14 @@ public class JwtTokenUtil {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
         Map<String, Object> claims = authentication.getAuthorities().stream()
                 .collect(Collectors.toMap(GrantedAuthority::getAuthority, role -> true));
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(userPrincipal.getUsername())
-                .setIssuer(jwtIssuer)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 3 * 24 * 60 * 60 * 1000)) // 3 days
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+        return Jwts.builder().setClaims(claims).setSubject(userPrincipal.getUsername()).setIssuer(jwtIssuer)
+                .setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 3 * 24 * 60 * 60 * 1000)) // 3
+                                                                                                                       // days
+                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
 
     private Claims getClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
     }
 
     public String getUsername(String token) {

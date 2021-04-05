@@ -18,12 +18,12 @@ public class RoleService {
 
     private final RoleRepository roleRepository;
 
-    public Set<RoleType> getRoleList(UserDetails userDetails){
-        return userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).map(RoleType::decode).collect(Collectors.toSet());
+    public Set<RoleType> getRoleList(UserDetails userDetails) {
+        return userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).map(RoleType::decode)
+                .collect(Collectors.toSet());
     }
 
-
-    public Set<Role> getRoles(Set<RoleType> roleTypes){
+    public Set<Role> getRoles(Set<RoleType> roleTypes) {
         return roleRepository.findAllByRoleNameIn(RoleType.roleTypeWithoutAnonymous(roleTypes)).orElse(new HashSet<>());
     }
 }

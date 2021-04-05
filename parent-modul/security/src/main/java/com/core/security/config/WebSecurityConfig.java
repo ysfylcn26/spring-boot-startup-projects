@@ -27,8 +27,8 @@ import java.util.Collections;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        //securedEnabled = true,
-        //jsr250Enabled = true,
+        // securedEnabled = true,
+        // jsr250Enabled = true,
         prePostEnabled = true)
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -55,19 +55,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(authEntryPointJwt)
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/editor/**").hasAuthority(RoleType.ROLE_EDITOR.getRole())
-                .antMatchers("/api/admin/**").hasAnyAuthority(RoleType.ROLE_ADMIN.getRole(), RoleType.ROLE_EDITOR.getRole())
-                .antMatchers("/api/user/**").hasAnyAuthority(RoleType.ROLE_USER.getRole(), RoleType.ROLE_ADMIN.getRole(), RoleType.ROLE_EDITOR.getRole())
-                .antMatchers("**/**").authenticated()
-                .and()
-                .httpBasic();
+        http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(authEntryPointJwt).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll().antMatchers("/api/editor/**")
+                .hasAuthority(RoleType.ROLE_EDITOR.getRole()).antMatchers("/api/admin/**")
+                .hasAnyAuthority(RoleType.ROLE_ADMIN.getRole(), RoleType.ROLE_EDITOR.getRole())
+                .antMatchers("/api/user/**").hasAnyAuthority(RoleType.ROLE_USER.getRole(),
+                        RoleType.ROLE_ADMIN.getRole(), RoleType.ROLE_EDITOR.getRole())
+                .antMatchers("**/**").authenticated().and().httpBasic();
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
@@ -77,7 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Collections.singletonList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"));
-        configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
+        configuration.setAllowedHeaders(
+                Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

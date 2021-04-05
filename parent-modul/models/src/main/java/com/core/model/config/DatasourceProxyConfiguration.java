@@ -21,8 +21,7 @@ public class DatasourceProxyConfiguration implements BeanPostProcessor {
     public Object postProcessAfterInitialization(final Object bean, final String beanName) throws BeansException {
         if (bean instanceof DataSource) {
             DataSource dataSourceBean = (DataSource) bean;
-            return ProxyDataSourceBuilder.create(dataSourceBean).name("Db Connection")
-                    .multiline().asJson().countQuery()
+            return ProxyDataSourceBuilder.create(dataSourceBean).name("Db Connection").multiline().asJson().countQuery()
                     .logQueryBySlf4j(SLF4JLogLevel.INFO).build();
         }
         return bean;

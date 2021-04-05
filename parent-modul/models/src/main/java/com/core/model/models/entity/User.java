@@ -19,10 +19,8 @@ import java.util.UUID;
 @Setter
 @Builder
 @Entity
-@Table(name = "users",
-        uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "email")})
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email") })
 public class User extends Auditable {
 
     @Id
@@ -45,9 +43,7 @@ public class User extends Auditable {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_roles",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @BatchSize(size = 3)
     private Set<Role> roles = new HashSet<>();
 }
