@@ -2,7 +2,6 @@ package com.core.model.repository;
 
 import com.core.model.models.entity.Role;
 import com.core.model.models.enums.RoleType;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
