@@ -12,10 +12,6 @@
 	<name>app</name>
 	<description>Spring Boot Main Project</description>
 
-	<properties>
-
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.core</groupId>
@@ -29,7 +25,7 @@
 		<dependency>
 			<groupId>de.siegmar</groupId>
 			<artifactId>logback-gelf</artifactId>
-			<version>3.0.0</version>
+			<version>${logback-gelf-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -46,10 +42,6 @@
 				<configuration>
 					<mainClass>com.main.app.AppApplication</mainClass>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

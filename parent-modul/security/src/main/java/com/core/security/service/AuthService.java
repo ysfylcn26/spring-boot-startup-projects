@@ -18,13 +18,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +43,7 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenUtil.generateAccessToken(authentication);
-        Set<RoleType> roleList = roleService.getRoleList((UserDetails) authentication.getPrincipal());
+        Set<RoleType> roleList = authentication.getAuthorities().stream().map(x -> RoleType.valueOf(x.getAuthority())).collect(Collectors.toSet());
         return AuthenticationResponse.builder().token(jwt).roleList(roleList).username(request.getUsername()).build();
     }
 
